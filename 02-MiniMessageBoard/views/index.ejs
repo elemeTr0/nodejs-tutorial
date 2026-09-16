@@ -7,13 +7,18 @@
 </head>
 <body>
     <ul>
-        <% messages.map((message, index) => { %>
-            <li>
-                <%= message.user %>: <%= message.text%> (<%= message.added%>)
-                <a href="/message/<%=index%>">Open</a>
-            </li>
-        <%})%>
-    </ul>
+    <% messages.map((message, index) => { %>
+        <li>
+            <%= message.user %>: <%= message.text %> (<%= message.added %>)
+
+            <a href="/message/<%= index %>">Open</a>
+
+            <form action="/delete/<%= index %>" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    <% }) %>
+</ul>
     <a href="/new">Create a new message</a>
 </body>
 </html>

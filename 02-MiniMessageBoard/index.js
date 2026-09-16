@@ -18,10 +18,6 @@ const messages = [
   }
 ];
 
-
-const path = require("node:path");
-const { measureMemory } = require("node:vm");
-
 app.get('/', (req,res) => {
     console.log("working");
     res.render("index", { messages:messages });
@@ -31,10 +27,17 @@ app.get('/new', (req,res) =>{
     console.log("accessed /new")
     res.render("form")
 })
-app.post('/new', (req,res,next) =>{
+app.post('/new', (req,res) =>{
     messages.push({text: req.body.message, user: req.body.author, added: new Date()})
     res.redirect("/")
 })
+app.post("/delete/:id", (req, res) => {
+    const id = Number(req.params.id);
+
+    messages.splice(id, 1);
+
+    res.redirect("/");
+});
 app.get("/message/:id", (req, res) => {
     const id = Number(req.params.id);
     const message = messages[id];
@@ -42,4 +45,8 @@ app.get("/message/:id", (req, res) => {
     res.send(message)
 });
 
-app.listen(3000)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
