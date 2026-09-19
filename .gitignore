@@ -1,4 +1,10 @@
 playground/
+03&04-Account Creation/
 node_modules/
 .env
-03&04-Account Creation/
+uploads/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
