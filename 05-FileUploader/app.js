@@ -1,3 +1,6 @@
+require("dotenv").config();
+require("./passport")
+
 const express = require("express")
 const session = require("express-session")
 const { PrismaClient } = require("@prisma/client")
@@ -7,15 +10,14 @@ const app = express();
 const passport = require("passport");
 const authRouter = require("./routes/authRouter");
 
-require("./passport")
 
 const PORT = process.env.PORT || 3000;
-
+console.log(process.env.SESSION_SECRET);
 app.use(express.urlencoded({extended:false}))
 
 app.use(
     session({
-        secret:"some-secret",
+        secret:process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
         store: new PrismaSessionStore(prisma,{
